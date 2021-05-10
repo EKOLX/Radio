@@ -1,0 +1,12 @@
+<p>Channels</p>
+
+<div class="channels" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [scrollWindow]="false"
+  (scrolled)="onScrollDown()">
+  <ul>
+    <li style="height: 500px;" *ngFor="let channel of channels$ | async">
+      <a routerLink="/detail/{{channel.id}}">
+        {{channel.name}}
+      </a>
+    </li>
+  </ul>
+</div>
