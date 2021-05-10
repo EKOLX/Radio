@@ -12,6 +12,7 @@ import { ChannelListComponent } from './channel-list/channel-list.component';
 import { ChannelDetailComponent } from './channel-detail/channel-detail.component';
 
 import { InMemoryFakeDataService } from './services/in-memory-fake-data.service';
+import { AppMaterialModule } from './app-material.module';
 
 @NgModule({
   declarations: [
@@ -21,13 +22,14 @@ import { InMemoryFakeDataService } from './services/in-memory-fake-data.service'
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryFakeDataService, { dataEncapsulation: false }
     ),
-    AppRoutingModule,
     BrowserAnimationsModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    AppMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

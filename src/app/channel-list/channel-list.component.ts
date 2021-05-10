@@ -10,7 +10,10 @@ import { RadioService } from '../services/radio.service';
 })
 export class ChannelListComponent implements OnInit {
 
-  channels$: Observable<Channel[]> | undefined;
+  channels: Channel[] = [];
+  showSpinner: boolean = false;
+
+  private colors: string[] = ["#1abc9c", "#2ecc71", "#3498db", "#f1c40f", "#e67e22", "#e74c3c"];
 
   constructor(private radioService: RadioService) { }
 
@@ -18,13 +21,46 @@ export class ChannelListComponent implements OnInit {
     this.loadChannels();
   }
 
-  onScrollDown() {
+  onScroll() {
     this.loadChannels();
-    console.log("scrolled");
   }
 
   private loadChannels() {
-    this.channels$ = this.radioService.getChannels();
+    this.showSpinner = true;
+
+    this.radioService.getChannels()
+      .subscribe(result => {
+        this.updateChannelsColor(result);
+
+        if (this.channels.length == 0) {
+          this.channels = result;
+        } else {
+          this.updateChannelsContent(result);
+          this.channels = this.channels.concat(result);
+        }
+
+        this.showSpinner = false;
+      });
+  }
+
+  private updateChannelsContent(channels: Channel[]) {
+    let maxId = this.channels[this.channels.length - 1].id;
+
+    for (let ch of channels) {
+      ch.id = maxId++;
+      ch.name = `FM ${ch.id}`;
+    }
+  }
+
+  private updateChannelsColor(channels: Channel[]) {
+    for (let ch of channels) {
+      ch.color = this.getRandomColor();
+    }
+  }
+
+  private getRandomColor(): string {
+    const random = Math.floor(Math.random() * this.colors.length);
+    return this.colors[random];
   }
 
 }

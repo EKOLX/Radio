@@ -1,12 +1,22 @@
-<p>Channels</p>
+<mat-toolbar>
+  <button mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span style="padding-left: 20px;">Channels</span>
+  <span class="fill-space"></span>
+  <button mat-icon-button>
+    <mat-icon>favorite</mat-icon>
+  </button>
+</mat-toolbar>
 
-<div class="channels" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [scrollWindow]="false"
-  (scrolled)="onScrollDown()">
-  <ul>
-    <li style="height: 500px;" *ngFor="let channel of channels$ | async">
-      <a routerLink="/detail/{{channel.id}}">
-        {{channel.name}}
-      </a>
-    </li>
-  </ul>
+<div class="channels" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+  <mat-grid-list cols="1" rowHeight="100px">
+    <mat-grid-tile *ngFor="let channel of channels" [style.background]="channel.color" routerLink="/channel-detail">
+      {{channel.name}}
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<div class="loading-indicator" *ngIf="showSpinner">
+  <mat-progress-spinner [mode]="'indeterminate'"></mat-progress-spinner>
 </div>
