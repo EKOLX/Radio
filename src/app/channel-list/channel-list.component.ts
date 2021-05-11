@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Channel } from '../models/channel.model';
 import { RadioService } from '../services/radio.service';
+import { Utils } from '../utils/utils';
 
 @Component({
   selector: 'channel-list',
@@ -59,8 +60,7 @@ export class ChannelListComponent implements OnInit {
   }
 
   private getRandomColor(): string {
-    const random = Math.floor(Math.random() * this.colors.length);
-    return this.colors[random];
+    return this.colors[Utils.getRandom(this.colors.length)];
   }
 
 }

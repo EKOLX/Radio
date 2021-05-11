@@ -1,1 +1,18 @@
-<p>channel-detail works!</p>
+<mat-card>
+    <mat-card-header>
+        <mat-icon class="back" routerLink="/channel-list">arrow_back</mat-icon>
+        <mat-card-title-group>
+            <img mat-card-avatar class="header-image" [src]="song.cover" alt="Cover">
+            <mat-card-title>FM {{channelId}}</mat-card-title>
+            <mat-card-subtitle>{{song.singer}}</mat-card-subtitle>
+        </mat-card-title-group>
+        <span class="fill-space"></span>
+        <p class="description">{{song.name}}</p>
+        <button mat-fab color="accent" aria-label="Click to play" (click)="play()" *ngIf="!isPlaying">
+            <mat-icon>play_arrow</mat-icon>
+        </button>
+    </mat-card-header>
+   
+    <img mat-card-image src="/assets/equalizer.gif" alt="Photo" *ngIf="isPlaying">
+
+</mat-card>
